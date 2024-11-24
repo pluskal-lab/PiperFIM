@@ -1,0 +1,47 @@
+#LC-MS section
+lc-ms:
+  metadata: data/fbmn_metadata.tsv
+  ftable: data/fbmn_quant.csv
+  gnps2_ntable: data/fbmn/gnps2/nf_output/networking/clustersummary_with_network.tsv
+  gnps2_lib: data/fbmn/gnps2/nf_output/library/merged_results_with_gnps.tsv
+  annotations: data/annotation.csv
+  fingerid: data/sirius/compound_identifications.tsv
+  canopus: data/sirius/canopus_compound_summary.tsv
+  ftable_clean: data/ftable_clean.csv
+  ntable_clean: data/ntable_clean.csv
+
+#Wikidata section
+wikidata:
+  sparql_queries: #queries
+    piperidine: scripts/sparql_queries/query_piperidine.txt
+    benzylisoquinoline: scripts/sparql_queries/query_benzylisoquinoline.txt
+    aporphine: scripts/sparql_queries/query_aporphine.txt
+    piperolactam: scripts/sparql_queries/query_piperolactam.txt
+    seco-bia: scripts/sparql_queries/query_seco-bia.txt
+  
+  sparql_results: #query results
+    piperidine: data/wikidata/piperidine_in_genera.csv
+    benzylisoquinoline: data/wikidata/benzylisoquinoline_in_genera.csv
+    aporphine: data/wikidata/aporphine_in_genera.csv
+    piperolactam: data/wikidata/piperolactam_in_genera.csv
+    seco-bia: data/wikidata/seco-bia_in_genera.csv
+
+#scaffolds list
+scaffolds: [benzylisoquinoline, aporphine, piperolactam, piperidine, seco-bia]
+
+
+
+
+sparql_results_clean:
+  piperidine: data/wikidata/piperidine_in_genera_clean.csv
+  benzylisoquinoline: data/wikidata/benzylisoquinoline_in_genera_clean.csv
+  aporphine: data/wikidata/aporphine_in_genera_clean.csv
+  piperolactam: data/wikidata/piperolactam_in_genera_clean.csv
+  seco-bia: data/wikidata/seco-bia_in_genera_clean.csv
+
+unwanted_structures:
+  piperidine: ['O=C1N2CCCCC2C=C1']
+  benzylisoquinoline: []
+  aporphine: []
+  piperolactam: [] 
+  seco-bia: ['C12=C(C3=CC=CC=C3CC2)C=CC=C1', 'CN1CC2=C3C(OCO3)=CC=C2CCC4=CC5=C(OCO5)C=C4CC1', 'C12=C(OC3=CC=CC=C3CC2)C=CC=C1']

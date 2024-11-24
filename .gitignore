@@ -1,0 +1,7 @@
+#ignore entire data folder
+/data/ 
+/figures/ 
+/results/
+
+#ignore all .DS_Store
+.DS_Store

@@ -1,0 +1,33 @@
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pr: <http://www.wikidata.org/prop/reference/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX hint: <http://www.bigdata.com/queryHints#>
+PREFIX sachem: <http://bioinfo.uochb.cas.cz/rdf/v1.0/sachem#>
+PREFIX idsm: <https://idsm.elixir-czech.cz/sparql/endpoint/>
+
+SELECT ?genus ?genus_name ?smiles ?reference ?reference_doi WHERE {
+    SERVICE idsm:wikidata {
+        VALUES ?SUBSTRUCTURE {
+            "C12=CC=CC3=C1C(NCC2)CC4=C3C=CC=C4" #aporphine scaffold
+        }
+        ?compound sachem:substructureSearch [
+        sachem:query ?SUBSTRUCTURE
+        ].
+    } hint:Prior hint:runFirst TRUE.
+    
+    ?compound p:P703 ?statement. #P703="found in taxon" property
+    ?compound wdt:P233 ?smiles. #P233="SMILES" property
+    ?statement ps:P703/wdt:P171 ?genus. #P171="parent taxon" property
+    ?genus wdt:P225 ?genus_name. #P225="taxon name" property
+    
+    # Add the reference DOI retrieval pattern
+    ?statement (prov:wasDerivedFrom/pr:P248) ?reference.    # get the reference
+    OPTIONAL {
+        ?reference wdt:P356 ?reference_doi.                 # get the DOI if available
+    }
+}
+GROUP BY ?genus ?genus_name ?smiles ?reference ?reference_doi
+ORDER BY DESC (?genus_name)
