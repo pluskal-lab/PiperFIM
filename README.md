@@ -14,9 +14,8 @@ This repository contains all the scripts needed to reproduce the data analysis a
 
 2. Concerning this GitHub repository, clone it by running the following command in your terminal:
 ~~~
-git clone https://github.com/titodamiani/PiperNET.git
+git clone https://github.com/pluskal-lab/PiperFIM.git
 ~~~
-<!-- Update link -->
 
 3. Create a new conda environment and install packages and dependencies listed in `requirements.txt`:
 ~~~
@@ -30,17 +29,17 @@ Alternatively, you can run the `activate.sh` script:
 source activate.sh
 ~~~
 
-4. Download all the necessary data from [this](https://drive.google.com/drive/folders/15UYWvmtI2sL41GpBTNRzfWILiIslAqTf?usp=drive_link) Google Drive folder.
+4. Download the `data` and `results` folder from [Zenodo](https://zenodo.org/records/14337379) inside the main repository directory.
 
 > [!NOTE]
-> Paths to input and output files are listed in `config/config.yaml`. Therefore, name or path to all files can be changed directly from there.
+> Paths and names of all input and output files are listed in the `config/config.yaml` file and can be changed directly from there.
 
 ## Usage
 ### LC-MS data analysis
 Feature detection with mzmine can be reproduced using the provided batch file (`mzmine_featdetect.mzbatch` in the `scripts` folder) as described in [Heuckeroth et al. 2024](https://www.nature.com/articles/s41596-024-00996-y). Feature-based molecular networking (FBMN) on the GNPS2 platform and _in silico_ chemical structure and compound class predictions with the SIRIUS software can be reproduced as described in the [original publication](bioRchive_DOI). 
 
 
-The `01_lcms_dataprep.py` integrates output files from these software tools to facilitate downstream data analysis. After downloading the [`data`](LINK) folder inside the main repository directory, run:
+The `01_lcms_dataprep.py` integrates output files from these software tools to facilitate downstream data analysis:
 ~~~
 python scripts/01_lcms_dataprep.py
 ~~~
@@ -53,13 +52,13 @@ The `02_run_sparql_queries.py` script runs the SPARQL queries stored in the `scr
 python scripts/02_run_sparql_queries.py
 ~~~
 
-The `03_run_sparql_queries.py` script cleans raw SPARQL query outputs by filtering out "unwanted substructures" erroneous reports in Wikidata as defined in the `config.yaml` file. Cleaned results are saved in the `results/phylo_tree/wikidata_clean` folder.
+The `03_clean_wikidata.py` script cleans raw SPARQL query outputs by filtering out "unwanted substructures" erroneous reports in Wikidata as defined in the `config.yaml` file. Cleaned results are saved in the `results/phylo_tree/wikidata_clean` folder.
 
 ~~~
 python scripts/03_run_sparql_queries.py
 ~~~
 
 ### Map SPARQL results onto the Angiosperm tree of life
-The `04_create_itol_annotation.py` script creates an annotation file (`iTOL_scaffolds.txt`) to use in [iTOL](https://itol.embl.de/) to map literature reports for each alkaloid scaffold (i.e., benzylisoquinoline, aporphine, piperolactam, piperidine, _seco_-benzylisoquinoline) in each genus covered in the angiorsperm tree of life published by [Zuntini et al. 2024](https://www.nature.com/articles/s41586-024-07324-0) (`global_tree_brlen_pruned_renamed.tre` file)
+The `04_create_itol_annotation.py` script creates an annotation file (`iTOL_scaffolds.txt`) to use in [iTOL](https://itol.embl.de/) to map literature reports for each alkaloid scaffold (i.e., benzylisoquinoline, aporphine, piperolactam, piperidine, _seco_-benzylisoquinoline) in each genus covered in the angiorsperm tree of life published by [Zuntini et al. 2024](https://www.nature.com/articles/s41586-024-07324-0) (`global_tree_brlen_pruned_renamed.tre` file). The resulting tree can be accessed at the following [link](https://itol.embl.de/tree/14723112167277531728383616).
 
-The `05_create_small_tree.py.py` script creates a smaller version of the `global_tree_brlen_pruned_renamed.tre` file by keeping only the orders where at least one alkaloid scaffold was reported.
+The `05_create_small_tree.py.py` script creates a smaller version of the `global_tree_brlen_pruned_renamed.tre` file by keeping only the orders where at least one alkaloid scaffold was reported. The resulting tree can be accessed at the following [link](https://itol.embl.de/tree/14723112167224931731658296).
