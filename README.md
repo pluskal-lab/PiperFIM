@@ -1,43 +1,65 @@
-# PiperFim Project
-This repository contains all the scripts needed to reproduce the data analysis and results of the manuscript "Remarkable diversity of alkaloid scaffolds in *Piper fimbriulatum*". <!-- Add DOI when available -->
+# Remarkable diversity of alkaloid scaffolds in *Piper fimbriulatum*
+This repository contains all the scripts needed to reproduce the data analysis and results of the manuscript "Remarkable diversity of alkaloid scaffolds in *Piper fimbriulatum*". <!-- Add bioRchive DOI -->
 
 ## Requirements
-- [mzmine software](https://mzio.io/mzmine-news/) (v4.2.0)
-- [SIRIUS software](https://bio.informatik.uni-jena.de/software/sirius/) (v5.8.5)
+- [mzmine](https://mzio.io/mzmine-news/) software (v4.2.0)
+- [SIRIUS](https://bio.informatik.uni-jena.de/software/sirius/) software (v5.8.5)
 - [GNPS2](https://gnps2.org/homepage) online platform
 - [Miniconda/Anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
 - Python 3.11.0 or higher
 
 
-## Installation and steup
-1. Clone the PiperFIM repository:
+## Installation and setup
+1. To install mzmine and SIRIUS, follow the instructions provided in the corresponding online documentation (see [mzmine](https://mzmine.github.io/mzmine_documentation/index.html) and [SIRIUS](https://boecker-lab.github.io/docs.sirius.github.io/) docs).
+
+2. Concerning this GitHub repository, clone it by running the following command in your terminal:
 ~~~
 git clone https://github.com/titodamiani/PiperNET.git
 ~~~
 <!-- Update link -->
 
-2. Create a conda environment and install all  packages and dependencies listed in the `requirements.txt` file:
-
+3. Create a new conda environment and install packages and dependencies listed in `requirements.txt`:
 ~~~
 conda create -y --name piperfim
-conda install --file requirements.txt -y
 conda activate piperfim
+conda install --file requirements.txt -y
 ~~~
 
-3. Since data files are too big for GitHub, they are stored in [this](https://drive.google.com/drive/folders/15UYWvmtI2sL41GpBTNRzfWILiIslAqTf?usp=drive_link) Google Drive folder. Download the `data` folder inside the main PiperFim repository.
+Alternatively, you can run the `activate.sh` script:
+~~~
+source activate.sh
+~~~
 
-## Run scripts
-### LC-MS data preparation
-The `01_lcms_dataprep.py` script integrates various output files from the mzmine, SIRIUS and GNPS2 software tools into two data tables (i.e., `ftable_clean.csv` and `ntable_clean.csv`) to facilitate downstream data analysis. The `ftable_clean.csv` is an mzmine-like feature table and can be used to perform statistical analysis. The `ntable_clean.csv` is a GNPS2-like node table and can be used in Cytoscape for enhanced exploration of the  feature-based molecular networking results.
+4. Download all the necessary data from [this](https://drive.google.com/drive/folders/15UYWvmtI2sL41GpBTNRzfWILiIslAqTf?usp=drive_link) Google Drive folder.
 
-To run the script, move to the main repository and run:
+> [!NOTE]
+> Paths to input and output files are listed in `config/config.yaml`. Therefore, name or path to all files can be changed directly from there.
+
+## Usage
+### LC-MS data analysis
+Feature detection with mzmine can be reproduced using the provided batch file (`mzmine_featdetect.mzbatch` in the `scripts` folder) as described in [Heuckeroth et al. 2024](https://www.nature.com/articles/s41596-024-00996-y). Feature-based molecular networking (FBMN) on the GNPS2 platform and _in silico_ chemical structure and compound class predictions with the SIRIUS software can be reproduced as described in the [original publication](bioRchive_DOI). 
+
+
+The `01_lcms_dataprep.py` integrates output files from these software tools to facilitate downstream data analysis. After downloading the [`data`](LINK) folder inside the main repository directory, run:
 ~~~
 python scripts/01_lcms_dataprep.py
 ~~~
+This will produce two output files: `ftable_clean.csv` (mzmine-like feature table) and `ntable_clean.csv` (GNPS2-like node table). The first can be used to perform statistical analysis, while the second can be importe in Cytoscape for enhanced exploration of FBMN results.
 
-Paths to all input and output files are listed in the `config.yaml`. Therefore, name or path to an input/ouput file can be changed directly from there.
 
 ### SPARQL query
-The `02_run_sparql_queries.py` script runs the SPARQL queries stored in the `scripts/sparql_queries` folder, clean the results (e.g., remove duplicates) and saves the ouptut in the `data/wikidata` folder.
+The `02_run_sparql_queries.py` script runs the SPARQL queries stored in the `scripts/sparql_queries` folder, clean the results (e.g., remove duplicates) and saves the ouptut in the `data/wikidata` folder. Queries are designed to retrieve all natural products that contain a specific substructure (defined by a SMILES) together with the plant genera each compound was isolated from, based on Wikidata. Literature references are also retrieved.
+~~~
+python scripts/02_run_sparql_queries.py
+~~~
 
-The SPARQL queries are designed to retrieve from Wikidata all natural products that contain a specific substructure (defined by a SMILES in the query), together with the name(s) of the plant genus each compound was isolated from. Literature references are also retrieved.
+The `03_run_sparql_queries.py` script cleans raw SPARQL query outputs by filtering out "unwanted substructures" erroneous reports in Wikidata as defined in the `config.yaml` file. Cleaned results are saved in the `results/phylo_tree/wikidata_clean` folder.
+
+~~~
+python scripts/03_run_sparql_queries.py
+~~~
+
+### Map SPARQL results onto the Angiosperm tree of life
+The `04_create_itol_annotation.py` script creates an annotation file (`iTOL_scaffolds.txt`) to use in [iTOL](https://itol.embl.de/) to map literature reports for each alkaloid scaffold (i.e., benzylisoquinoline, aporphine, piperolactam, piperidine, _seco_-benzylisoquinoline) in each genus covered in the angiorsperm tree of life published by [Zuntini et al. 2024](https://www.nature.com/articles/s41586-024-07324-0) (`global_tree_brlen_pruned_renamed.tre` file)
+
+The `05_create_small_tree.py.py` script creates a smaller version of the `global_tree_brlen_pruned_renamed.tre` file by keeping only the orders where at least one alkaloid scaffold was reported.

@@ -32,3 +32,8 @@ def run_sparql_query(query):
     response = requests.get(url, headers=headers, params=params)
     response.raise_for_status()  #raise error for bad responses
     return response.json()
+
+
+########## Check for substructure presence ##########
+def check_substructure(mol, substruct_list):  # function to filter substructures
+    return mol is not None and any(mol.HasSubstructMatch(sub) for sub in substruct_list)

@@ -1,12 +1,11 @@
-#individually run SPARQL queries, clean the output and save results as CSV (scaffold_in_genera_clean.csv)
-#queries are stored as txt in scripts/sparql_queries and loaded. Paths to queries defined in config.
+#individually run SPARQL queries (stored in scripts/sparql_queries), clean results (e.g., remove duplicates) and saves ouptut in data/wikidata
 
 import pandas as pd
 import requests
 from pathlib import Path
 from src.utils import load_config, run_sparql_query
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
 
 #config.yaml

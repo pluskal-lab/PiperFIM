@@ -12,6 +12,9 @@ lc-ms:
 
 #Wikidata section
 wikidata:
+
+  scaffolds: [benzylisoquinoline, aporphine, piperolactam, piperidine, seco-bia] #list of scaffolds
+
   sparql_queries: #queries
     piperidine: scripts/sparql_queries/query_piperidine.txt
     benzylisoquinoline: scripts/sparql_queries/query_benzylisoquinoline.txt
@@ -26,22 +29,21 @@ wikidata:
     piperolactam: data/wikidata/piperolactam_in_genera.csv
     seco-bia: data/wikidata/seco-bia_in_genera.csv
 
-#scaffolds list
-scaffolds: [benzylisoquinoline, aporphine, piperolactam, piperidine, seco-bia]
+  sparql_results_clean:
+    piperidine: results/phylo_tree/wikidata_clean/piperidine_in_genera_clean.csv
+    benzylisoquinoline: results/phylo_tree/wikidata_clean/benzylisoquinoline_in_genera_clean.csv
+    aporphine: results/phylo_tree/wikidata_clean/aporphine_in_genera_clean.csv
+    piperolactam: results/phylo_tree/wikidata_clean/piperolactam_in_genera_clean.csv
+    seco-bia: results/phylo_tree/wikidata_clean/seco-bia_in_genera_clean.csv
 
+  unwanted_structures:  #substructures to remove
+    piperidine: ['O=C1N2CCCCC2C=C1']
+    benzylisoquinoline: []
+    aporphine: []
+    piperolactam: [] 
+    seco-bia: ['C12=C(C3=CC=CC=C3CC2)C=CC=C1', 'CN1CC2=C3C(OCO3)=CC=C2CCC4=CC5=C(OCO5)C=C4CC1', 'C12=C(OC3=CC=CC=C3CC2)C=CC=C1']
 
+  errors: # Wikidata errors
+    piperidine: ['Centaurea', 'Capsicum', 'Aglaia']
 
-
-sparql_results_clean:
-  piperidine: data/wikidata/piperidine_in_genera_clean.csv
-  benzylisoquinoline: data/wikidata/benzylisoquinoline_in_genera_clean.csv
-  aporphine: data/wikidata/aporphine_in_genera_clean.csv
-  piperolactam: data/wikidata/piperolactam_in_genera_clean.csv
-  seco-bia: data/wikidata/seco-bia_in_genera_clean.csv
-
-unwanted_structures:
-  piperidine: ['O=C1N2CCCCC2C=C1']
-  benzylisoquinoline: []
-  aporphine: []
-  piperolactam: [] 
-  seco-bia: ['C12=C(C3=CC=CC=C3CC2)C=CC=C1', 'CN1CC2=C3C(OCO3)=CC=C2CCC4=CC5=C(OCO5)C=C4CC1', 'C12=C(OC3=CC=CC=C3CC2)C=CC=C1']
+  tree_file: results/phylo_tree/global_tree_brlen_pruned_renamed.tre  #phylogenetic tree
