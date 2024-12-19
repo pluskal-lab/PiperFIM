@@ -1,5 +1,5 @@
 # Remarkable diversity of alkaloid scaffolds in *Piper fimbriulatum*
-This repository contains all the scripts needed to reproduce the data analysis and results of the manuscript "Remarkable diversity of alkaloid scaffolds in *Piper fimbriulatum*". <!-- Add bioRchive DOI -->
+This repository contains all the scripts needed to reproduce the data analysis and results of the manuscript "Remarkable diversity of alkaloid scaffolds in *Piper fimbriulatum*" (https://doi.org/10.1101/2024.12.10.627739).
 
 ## Requirements
 - [mzmine](https://mzio.io/mzmine-news/) software (v4.2.0)
@@ -36,7 +36,7 @@ source activate.sh
 
 ## Usage
 ### LC-MS data analysis
-Feature detection with mzmine can be reproduced using the provided batch file (`mzmine_featdetect.mzbatch` in the `scripts` folder) as described in [Heuckeroth et al. 2024](https://www.nature.com/articles/s41596-024-00996-y). Feature-based molecular networking (FBMN) on the GNPS2 platform and _in silico_ chemical structure and compound class predictions with the SIRIUS software can be reproduced as described in the [original publication](bioRchive_DOI). 
+Feature detection with mzmine can be reproduced using the provided batch file (`mzmine_featdetect.mzbatch` in the `scripts` folder) as described in [Heuckeroth et al. 2024](https://www.nature.com/articles/s41596-024-00996-y). Feature-based molecular networking (FBMN) on the GNPS2 platform and _in silico_ chemical structure and compound class predictions with the SIRIUS software can be reproduced as described in the [original publication]([bioRchive_DOI](https://doi.org/10.1101/2024.12.10.627739)). 
 
 
 The `01_lcms_dataprep.py` integrates output files from these software tools to facilitate downstream data analysis:
