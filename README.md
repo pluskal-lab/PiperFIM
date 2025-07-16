@@ -1,5 +1,5 @@
-# Remarkable diversity of alkaloid scaffolds in *Piper fimbriulatum*
-This repository contains all the scripts needed to reproduce the data analysis and results of the manuscript "Remarkable diversity of alkaloid scaffolds in *Piper fimbriulatum*" (https://doi.org/10.1101/2024.12.10.627739).
+# Computational metabolomics reveals overlooked chemodiversity of alkaloid scaffolds in *Piper fimbriulatum*
+This repository contains all the scripts needed to reproduce the data analysis and results of the manuscript "Computational metabolomics reveals overlooked chemodiversity of alkaloid scaffolds in *Piper fimbriulatum*" (https://doi.org/10.1111/tpj.70086).
 
 ## Requirements
 - [mzmine](https://mzio.io/mzmine-news/) software (v4.2.0)
