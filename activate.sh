@@ -10,9 +10,7 @@ if conda env list | grep -q 'piperfim'; then
 else
     #if env doesn't exist, create it and install packages in requirements.txt
     echo "Creating conda environment piperfim..."
-    conda create -y --name piperfim
-    echo "Installing packages..."
-    conda install --file requirements.txt -y
+    conda env create -f requirements.yaml
     conda activate piperfim
 fi
 

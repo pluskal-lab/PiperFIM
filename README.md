@@ -17,14 +17,13 @@ This repository contains all the scripts needed to reproduce the data analysis a
 git clone https://github.com/pluskal-lab/PiperFIM.git
 ~~~
 
-3. Create a new conda environment and install packages and dependencies listed in `requirements.txt`:
+3. Create a new conda environment and install the required packages and dependencies from `requirements.yaml`:
 ~~~
-conda create -y --name piperfim
+conda env create -f requirements.yaml
 conda activate piperfim
-conda install --file requirements.txt -y
 ~~~
 
-Alternatively, you can run the `activate.sh` script:
+Alternatively, if you are using macOS or Linux, you can run the `activate.sh` script:
 ~~~
 source activate.sh
 ~~~
@@ -61,4 +60,4 @@ python scripts/03_run_sparql_queries.py
 ### Map SPARQL results onto the Angiosperm tree of life
 The `04_create_itol_annotation.py` script creates an annotation file (`iTOL_scaffolds.txt`) to use in [iTOL](https://itol.embl.de/) to map literature reports for each alkaloid scaffold (i.e., benzylisoquinoline, aporphine, piperolactam, piperidine, _seco_-benzylisoquinoline) in each genus covered in the angiorsperm tree of life published by [Zuntini et al. 2024](https://www.nature.com/articles/s41586-024-07324-0) (`global_tree_brlen_pruned_renamed.tre` file). The resulting tree can be accessed at the following [link](https://itol.embl.de/tree/14723112167277531728383616).
 
-The `05_create_small_tree.py.py` script creates a smaller version of the `global_tree_brlen_pruned_renamed.tre` file by keeping only the orders where at least one alkaloid scaffold was reported. The resulting tree can be accessed at the following [link](https://itol.embl.de/tree/14723112167224931731658296).
+The `05_create_small_tree.py` script creates a smaller version of the `global_tree_brlen_pruned_renamed.tre` file by keeping only the orders where at least one alkaloid scaffold was reported. The resulting tree can be accessed at the following [link](https://itol.embl.de/tree/14723112167224931731658296).
